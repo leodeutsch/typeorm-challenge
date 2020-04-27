@@ -1,17 +1,20 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
   Column,
+  PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+
+import Transaction from './Transaction';
 
 @Entity('categories')
 class Category {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column('varchar')
   title: string;
 
   @CreateDateColumn()
@@ -19,6 +22,9 @@ class Category {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Transaction, transaction => transaction.category)
+  transaction: Transaction;
 }
 
 export default Category;
